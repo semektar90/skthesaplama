@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKT Hesaplayıcı - Serhat Emektar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        .current-date {
+            text-align: center;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 1rem;
+            padding: 10px;
+            background: #e8f0fe;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .days {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .date-result {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+        /* İmza Alanı */
+        .footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-style: italic;
+        }
+        .footer strong {
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>SKT Hesaplama Paneli</h2>
+    <div class="current-date" id="today">Bugünün Tarihi: ...</div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Süre (Gün)</th>
+                <th>Son Kullanma Tarihi</th>
+            </tr>
+        </thead>
+        <tbody id="result-table">
+            </tbody>
+    </table>
+
+    <div class="footer">
+        Designed by <strong>Serhat Emektar</strong>
+    </div>
+</div>
+
+<script>
+    const daysArray = [60, 90, 120, 150, 180, 210, 240, 270, 300, 360, 720];
+    const today = new Date();
+    
+    // Bugünün tarihini göster
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('today').innerText = "Bugünün Tarihi: " + today.toLocaleDateString('tr-TR', options);
+
+    const tableBody = document.getElementById('result-table');
+
+    daysArray.forEach(days => {
+        let futureDate = new Date();
+        // JavaScript tarih nesnesi otomatik olarak ay/yıl geçişlerini yapar
+        futureDate.setDate(today.getDate() + days);
+        
+        let row = `<tr>
+            <td class="days">${days} Gün</td>
+            <td class="date-result">${futureDate.toLocaleDateString('tr-TR')}</td>
+        </tr>`;
+        
+        tableBody.innerHTML += row;
+    });
+</script>
+
+</body>
+</html>
+
